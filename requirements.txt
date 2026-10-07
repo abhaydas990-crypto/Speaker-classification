@@ -1,0 +1,9 @@
+# Python 3.10 - 3.12 recommended
+tensorflow>=2.16          # Keras 3 is required to open the .keras file saved in Colab
+tensorflow-hub>=0.16      # downloads the YAMNet audio-embedding model on first run
+setuptools<81             # TensorFlow Hub 0.16 imports pkg_resources, removed in setuptools 81
+librosa>=0.10
+soundfile
+numpy
+Flask>=3.0
+# scikit-learn is NOT needed: the scaler/class names are read from model/preproc.json

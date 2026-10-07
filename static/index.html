@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice &amp; Animal Sound Recognizer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <header class="page-head">
+    <h1>🎙️ Voice &amp; Animal Sound Recognizer</h1>
+    <p class="sub">Record with your microphone or pick a file from your device — the model tells you which person is speaking or which animal it hears.</p>
+  </header>
+
+  <div class="banner" id="banner"></div>
+
+  <section class="card">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-mic" aria-selected="true">🎤 Live recording</button>
+      <button class="tab" role="tab" id="tab-file" aria-selected="false">📁 From device</button>
+    </div>
+
+    <div class="panel" id="panel-mic">
+      <div class="rec">
+        <canvas id="viz" width="720" height="84"></canvas>
+        <button class="recbtn" id="recbtn" type="button" aria-label="Start recording" title="Start / stop recording">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+        </button>
+        <div class="timer" id="timer">0:00</div>
+        <p class="hint" id="rechint">Tap the button, speak or play a sound for 2–10 seconds, then tap again to stop.</p>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-file" hidden>
+      <label class="drop" id="drop" for="file">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 15v4H5v-4H3v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4h-2zM11 3v10.17l-3.59-3.58L6 11l6 6 6-6-1.41-1.41L13 13.17V3h-2z"/></svg>
+        <b>Click to choose audio files, or drop them here</b>
+        <span>WAV · MP3 · OGG · M4A · FLAC · WebM · WhatsApp voice notes</span>
+        <input type="file" id="file" accept="audio/*,.ogg,.opus,.m4a,.aac,.mp3,.wav,.flac,.webm" multiple>
+      </label>
+    </div>
+
+    <audio id="player" controls hidden></audio>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="card" id="result" hidden>
+    <div class="verdict">
+      <div class="emoji" id="r-emoji"></div>
+      <div>
+        <div class="kind" id="r-kind"></div>
+        <div class="name" id="r-name"></div>
+        <div class="conf" id="r-conf"></div>
+      </div>
+    </div>
+    <div class="note" id="r-note" hidden></div>
+
+    <h3>Human vs animal</h3>
+    <div class="split"><i class="h" id="s-h"></i><i class="a" id="s-a"></i></div>
+    <div class="legend"><span class="h" id="l-h"></span><span class="a" id="l-a"></span></div>
+
+    <h3>Top guesses</h3>
+    <div id="r-top"></div>
+
+    <h3>Window by window <span class="dim">(3-second slices)</span></h3>
+    <div class="chips" id="r-win"></div>
+  </section>
+
+  <section class="card" id="histcard" hidden>
+    <h3 class="flush">This session</h3>
+    <ul class="hist" id="hist"></ul>
+  </section>
+
+  <section class="card known" id="known" hidden></section>
+
+  <footer class="page-foot">Runs on your own computer · audio is analysed locally and never leaves this machine.</footer>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
